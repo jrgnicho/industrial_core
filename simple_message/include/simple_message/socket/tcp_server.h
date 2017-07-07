@@ -71,6 +71,10 @@ public:
   bool init(int port_num);
 
   // Overrides
+  /**
+   * \brief This is a non-blocking method that connects to a client if one is available. Overrides SmplMsgConnection::makeConnect().
+   * \return
+   */
   bool makeConnect();
 
 protected:

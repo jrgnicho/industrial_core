@@ -50,6 +50,7 @@
 #include "unistd.h"
 #include "netinet/tcp.h"
 #include "errno.h"
+#include "fcntl.h"
 
 #define SOCKET(domain, type, protocol) socket(domain, type, protocol)
 #define BIND(sockfd, addr, addrlen) bind(sockfd, addr, addrlen)
@@ -70,6 +71,7 @@
 #define INET_ADDR(str) inet_addr(str)
 #define SOCKLEN_T socklen_t
 #define GETHOSTBYNAME(str) gethostbyname(str)
+#define FCNTL(sockfd,cmd,arg) fcntl(sockfd,cmd,arg);
 
 #endif
 
@@ -112,6 +114,7 @@ extern "C" STATUS setsockopt (   /* remove "extern C", if you're using C instead
 #define INET_ADDR(str) mpInetAddr(str)
 #define SOCKLEN_T unsigned int
 #define GETHOSTBYNAME(str) NULL
+#define FCNTL(sockfd,cmd,arg) fcntl(sockfd,cmd,arg);
 
 #endif
 

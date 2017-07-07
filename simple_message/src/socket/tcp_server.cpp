@@ -31,6 +31,7 @@
 #ifndef FLATHEADERS
 #include "simple_message/socket/tcp_server.h"
 #include "simple_message/log_wrapper.h"
+
 #else
 #include "tcp_server.h"
 #include "log_wrapper.h"
@@ -132,7 +133,15 @@ bool TcpServer::makeConnect()
       this->setSockHandle(this->SOCKET_FAIL);
     }
 
+    // disable blocking
+    int opts = FCNTL(this->getSrvrHandle(),F_GETFL,0);
+    FCNTL(this->getSrvrHandle(), F_SETFL, opts | O_NONBLOCK);
+
+    // accepting connection
     rc = ACCEPT(this->getSrvrHandle(), NULL, NULL);
+
+    // re-enable blocking
+    FCNTL(this->getSrvrHandle(), F_SETFL, opts);
 
     if (this->SOCKET_FAIL != rc)
     {
